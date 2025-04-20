@@ -184,3 +184,38 @@ The API returns standardized error responses:
   "error": "Detailed error message"
 }
 ```
+
+# Authentication & Authorization Differences Between Admin and User Roles
+
+## Role-Based Access Control
+
+This API implements two roles:
+1. **Admin**: Full access to all endpoints
+2. **User**: Restricted access to certain endpoints
+
+## Practical Differences
+
+### What Admins Can Do That Regular Users Cannot:
+1. View all users (`GET /users`)
+2. Delete any user (`DELETE /users/:id`)
+3. Modify any product regardless of ownership
+4. Delete any product regardless of ownership
+
+### What Regular Users Can Do:
+1. Only view their own user details
+2. Only modify their own user details
+3. Create products
+4. Only modify/delete products they own
+
+## Testing the Differences
+
+1. **As Admin**:
+   - Login with `admin@example.com`
+   - Can access all routes
+   - Can manage all users and products
+
+2. **As Regular User**:
+   - Login with `user@example.com`
+   - Cannot access `/users` list
+   - Can only modify own user data
+   - Can only modify products they created
